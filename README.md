@@ -14,3 +14,11 @@ To connect to a MongoDB database, the following variable has to be set:
 For example like this:
 
     spring.data.mongodb.uri=mongodb://user:password@domain:port/database
+
+For connection to a (notes-) collection, the following variable has to be set:
+
+    collection.name
+
+For example like this:
+
+    collection.name=notes
