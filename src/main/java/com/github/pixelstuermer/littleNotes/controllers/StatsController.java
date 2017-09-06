@@ -18,7 +18,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping( value = "/stats" )
-@Api( "Lists stats for the \"Notes\" collection" )
+@Api( description = "Lists stats" )
 public class StatsController {
 
    @Autowired
@@ -28,7 +28,7 @@ public class StatsController {
    Collection collection;
 
    @RequestMapping( method = RequestMethod.GET, value = "/db" )
-   @ApiOperation( value = "Shows some stats of the database" )
+   @ApiOperation( value = "Shows stats of the database" )
    public ResponseEntity<DbStats> getDbStats() {
       BasicDBObject document = mongoTemplate.getDb().getStats();
       DbStats stats = mongoTemplate.getConverter().read( DbStats.class, document );
@@ -36,7 +36,7 @@ public class StatsController {
    }
 
    @RequestMapping( method = RequestMethod.GET, value = "/collection" )
-   @ApiOperation( value = "Shows some stats of the collection" )
+   @ApiOperation( value = "Shows stats of the \"Notes\" collection" )
    public ResponseEntity<CollectionStats> getCollectionStats() {
       BasicDBObject document = mongoTemplate.getCollection( collection.getCollectionName() ).getStats();
       CollectionStats stats = mongoTemplate.getConverter().read( CollectionStats.class, document );
@@ -44,7 +44,7 @@ public class StatsController {
    }
 
    @RequestMapping( method = RequestMethod.GET, value = "/collection/count" )
-   @ApiOperation( value = "Shows the number of stored documents within the collection" )
+   @ApiOperation( value = "Shows the number of stored documents within the \"Notes\" collection" )
    public ResponseEntity<Counter> getCollectionCount() {
       long count = mongoTemplate.getCollection( collection.getCollectionName() ).count();
       return ResponseEntity.ok().body( Counter.builder().documents( count ).build() );
