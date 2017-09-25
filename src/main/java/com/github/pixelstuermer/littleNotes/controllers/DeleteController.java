@@ -50,6 +50,7 @@ public class DeleteController {
       @RequestHeader( value = "author", required = true ) String author ) {
       // prepare mongo query
       BasicDBObject query = new BasicDBObject( "payload.author", author );
+
       mongoTemplate.getCollection( collection.getCollectionName() ).remove( query );
       return ResponseEntity.ok().body( DeleteResult.builder().success( true )
          .message( "notes from " + author + " deleted" ).build() );
