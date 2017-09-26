@@ -56,4 +56,11 @@ public class DeleteController {
          .message( "notes from " + author + " deleted" ).build() );
    }
 
+   @RequestMapping( method = RequestMethod.DELETE, value = "/all" )
+   @ApiOperation( value = "Deletes all notes" )
+   public ResponseEntity<String> deleteAllNotes() {
+      mongoTemplate.getCollection( collection.getCollectionName() ).remove( new BasicDBObject() );
+      return ResponseEntity.ok().build();
+   }
+
 }
