@@ -28,8 +28,6 @@
 		</encoder>
 	</appender>
 
-	<logger name="springfox.documentation" level="DEBUG" />
-
 	<root level="DEBUG">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="FILE" />
