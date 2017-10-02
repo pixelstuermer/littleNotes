@@ -1,6 +1,7 @@
 package com.github.pixelstuermer.littleNotes.controllers;
 
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,9 @@ public class DeleteController {
    @Autowired
    Collection collection;
 
+   @Autowired
+   Logger logger;
+
    @RequestMapping( method = RequestMethod.DELETE, value = "/id" )
    @PreAuthorize( "hasRole('" + Roles.ADMIN + "')" )
    @ApiOperation( value = "Deletes a note according to its ObjectId" )
@@ -38,10 +42,12 @@ public class DeleteController {
          // prepare mongo query
          BasicDBObject query = new BasicDBObject( "_id", new ObjectId( id ) );
          mongoTemplate.getCollection( collection.getCollectionName() ).remove( query );
+         logger.info( "ID {} deleted", id );
          return ResponseEntity.ok().body( DeleteResult.builder().success( true )
             .message( "note " + id + " deleted" ).build() );
       }
       catch ( Exception e ) {
+         logger.info( "Tried to delete ID {}", id );
          return ResponseEntity.badRequest().body( DeleteResult.builder().success( false )
             .message( "note " + id + " not deleted" ).build() );
       }
@@ -56,6 +62,7 @@ public class DeleteController {
       BasicDBObject query = new BasicDBObject( "payload.author", author );
 
       mongoTemplate.getCollection( collection.getCollectionName() ).remove( query );
+      logger.info( "Deleted all notes from {}", author );
       return ResponseEntity.ok().body( DeleteResult.builder().success( true )
          .message( "notes from " + author + " deleted" ).build() );
    }
@@ -65,6 +72,7 @@ public class DeleteController {
    @ApiOperation( value = "Deletes all notes" )
    public ResponseEntity<String> deleteAllNotes() {
       mongoTemplate.getCollection( collection.getCollectionName() ).remove( new BasicDBObject() );
+      logger.info( "Deleted absolutely all notes from all authors" );
       return ResponseEntity.ok().build();
    }
 
