@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pixelstuermer.littleNotes.models.Collection;
 import com.github.pixelstuermer.littleNotes.models.CreateResult;
+import com.github.pixelstuermer.littleNotes.utils.Roles;
 import com.mongodb.BasicDBObject;
 
 import io.swagger.annotations.Api;
@@ -30,7 +31,7 @@ public class CreateController {
    Collection collection;
 
    @RequestMapping( method = RequestMethod.POST, value = "/new" )
-   @PreAuthorize( "hasAnyRole('ADMIN','USER')" )
+   @PreAuthorize( "hasAnyRole('" + Roles.ADMIN + "','" + Roles.USER + "')" )
    @ApiOperation( value = "Creates a new note document" )
    public ResponseEntity<CreateResult> deleteObjectIdNotes(
       @RequestHeader( value = "author", required = true ) String author,

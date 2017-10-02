@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pixelstuermer.littleNotes.models.Collection;
 import com.github.pixelstuermer.littleNotes.models.DeleteResult;
+import com.github.pixelstuermer.littleNotes.utils.Roles;
 import com.mongodb.BasicDBObject;
 
 import io.swagger.annotations.Api;
@@ -29,7 +30,7 @@ public class DeleteController {
    Collection collection;
 
    @RequestMapping( method = RequestMethod.DELETE, value = "/id" )
-   @PreAuthorize( "hasRole('ADMIN')" )
+   @PreAuthorize( "hasRole('" + Roles.ADMIN + "')" )
    @ApiOperation( value = "Deletes a note according to its ObjectId" )
    public ResponseEntity<DeleteResult> deleteObjectIdNotes(
       @RequestHeader( value = "id", required = true ) String id ) {
@@ -47,7 +48,7 @@ public class DeleteController {
    }
 
    @RequestMapping( method = RequestMethod.DELETE, value = "/author" )
-   @PreAuthorize( "hasRole('ADMIN')" )
+   @PreAuthorize( "hasRole('" + Roles.ADMIN + "')" )
    @ApiOperation( value = "Deletes notes according to their author" )
    public ResponseEntity<DeleteResult> deleteAuthorNotes(
       @RequestHeader( value = "author", required = true ) String author ) {
@@ -60,7 +61,7 @@ public class DeleteController {
    }
 
    @RequestMapping( method = RequestMethod.DELETE, value = "/all" )
-   @PreAuthorize( "hasRole('ADMIN') and hasRole('USER')" )
+   @PreAuthorize( "hasRole('" + Roles.ADMIN + "') and hasRole('" + Roles.USER + "')" )
    @ApiOperation( value = "Deletes all notes" )
    public ResponseEntity<String> deleteAllNotes() {
       mongoTemplate.getCollection( collection.getCollectionName() ).remove( new BasicDBObject() );
