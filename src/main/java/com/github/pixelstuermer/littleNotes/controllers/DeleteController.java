@@ -4,6 +4,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,6 +29,7 @@ public class DeleteController {
    Collection collection;
 
    @RequestMapping( method = RequestMethod.DELETE, value = "/id" )
+   @PreAuthorize( "hasRole('ADMIN')" )
    @ApiOperation( value = "Deletes a note according to its ObjectId" )
    public ResponseEntity<DeleteResult> deleteObjectIdNotes(
       @RequestHeader( value = "id", required = true ) String id ) {
@@ -45,6 +47,7 @@ public class DeleteController {
    }
 
    @RequestMapping( method = RequestMethod.DELETE, value = "/author" )
+   @PreAuthorize( "hasRole('ADMIN')" )
    @ApiOperation( value = "Deletes notes according to their author" )
    public ResponseEntity<DeleteResult> deleteAuthorNotes(
       @RequestHeader( value = "author", required = true ) String author ) {
@@ -57,6 +60,7 @@ public class DeleteController {
    }
 
    @RequestMapping( method = RequestMethod.DELETE, value = "/all" )
+   @PreAuthorize( "hasRole('ADMIN') and hasRole('USER')" )
    @ApiOperation( value = "Deletes all notes" )
    public ResponseEntity<String> deleteAllNotes() {
       mongoTemplate.getCollection( collection.getCollectionName() ).remove( new BasicDBObject() );

@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +30,7 @@ public class CreateController {
    Collection collection;
 
    @RequestMapping( method = RequestMethod.POST, value = "/new" )
+   @PreAuthorize( "hasAnyRole('ADMIN','USER')" )
    @ApiOperation( value = "Creates a new note document" )
    public ResponseEntity<CreateResult> deleteObjectIdNotes(
       @RequestHeader( value = "author", required = true ) String author,
