@@ -25,17 +25,17 @@ public class ReadControllerTest {
    }
 
    @Test
-   public void controllerBasicResponseTest() {
+   public void basicResponseTest() {
       // mock data
-      NoteEntry entry1 = new NoteEntry();
-      entry1.set_id( "59c9013cb689f60261be342b" );
-      entry1.getMetaData().put( "created", "Mon Sep 25 13:09:35 UTC 2017" );
-      entry1.getMetaData().put( "changed", "Mon Sep 25 18:14:22 UTC 2017" );
-      entry1.getPayload().put( "note", "FooBar" );
-      entry1.getPayload().put( "author", "Tim" );
+      NoteEntry entry = new NoteEntry();
+      entry.set_id( "59c9013cb689f60261be342b" );
+      entry.getMetaData().put( "created", "Mon Sep 25 13:09:35 UTC 2017" );
+      entry.getMetaData().put( "changed", "Mon Sep 25 18:14:22 UTC 2017" );
+      entry.getPayload().put( "note", "FooBar" );
+      entry.getPayload().put( "author", "Tim" );
 
       ReadResult readResult = new ReadResult();
-      readResult.getNotes().add( entry1 );
+      readResult.getNotes().add( entry );
       readResult.setCount( readResult.getNotes().size() );
 
       // mock controller
@@ -46,6 +46,36 @@ public class ReadControllerTest {
 
       // test status code
       assertTrue( readController.getAllNotes().getStatusCode() == HttpStatus.OK );
+   }
+
+   @Test
+   public void idGetterTest() {
+      // mock data
+      String id = "59c9013cb689f60261be342b";
+      String note = "FooBar";
+      String author = "Sarah";
+
+      NoteEntry entry = new NoteEntry();
+      entry.set_id( id );
+      entry.getMetaData().put( "created", "Mon Sep 25 13:09:35 UTC 2017" );
+      entry.getMetaData().put( "changed", "Mon Sep 25 18:14:22 UTC 2017" );
+      entry.getPayload().put( "note", note );
+      entry.getPayload().put( "author", author );
+
+      // mock controller
+      when( readController.getObjectIdNotes( id ) ).thenReturn( ResponseEntity.ok().body( entry ) );
+
+      // test id equality
+      assertTrue( readController.getObjectIdNotes( id ).getBody().get_id() == id );
+
+      // test note entry
+      assertTrue( readController.getObjectIdNotes( id ).getBody().getPayload().get( "note" ) == note );
+
+      // test author name
+      assertTrue( readController.getObjectIdNotes( id ).getBody().getPayload().get( "author" ) == author );
+
+      // test status code
+      assertTrue( readController.getObjectIdNotes( id ).getStatusCode() == HttpStatus.OK );
    }
 
 }
