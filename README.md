@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/pixelstuermer/littleNotes.svg?branch=master)](https://travis-ci.org/pixelstuermer/littleNotes)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # littleNotes
 Small MongoDB application with basic CRUD operations for something like notes
 
