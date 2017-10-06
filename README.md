@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/pixelstuermer/littleNotes.svg?branch=master)](https://travis-ci.org/pixelstuermer/littleNotes)
 [![codecov](https://codecov.io/gh/pixelstuermer/littleNotes/branch/master/graph/badge.svg)](https://codecov.io/gh/pixelstuermer/littleNotes)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub release](https://img.shields.io/github/release/pixelstuermer/littleNotes.svg)]()
 
 # littleNotes
 Small MongoDB application with basic CRUD operations for something like notes
@@ -26,3 +27,9 @@ For connection to a (notes-) collection, the following variable has to be set:
 For example like this:
 
     collection.name=notes
+
+Further on, the following passwords can ge granted when launching the application:
+
+    admin.password={...}
+    user.password={...}
+    phil.password={...}

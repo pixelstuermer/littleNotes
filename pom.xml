@@ -10,7 +10,7 @@
 
 	<groupId>com.github.pixelstuermer</groupId>
 	<artifactId>littleNotes</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>littleNotes</name>
@@ -72,10 +72,20 @@
 	</dependencies>
 
 	<build>
+		<finalName>littleNotes-${project.version}</finalName>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>${project.basedir}</directory>
+				<filtering>false</filtering>
+				<targetPath>${project.build.directory}</targetPath>
+				<includes>
+					<include>README.md</include>
+					<include>LICENSE</include>
+				</includes>
 			</resource>
 		</resources>
 		<plugins>
