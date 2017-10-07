@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/pixelstuermer/littleNotes.svg?branch=master)](https://travis-ci.org/pixelstuermer/littleNotes)
+[![codebeat badge](https://codebeat.co/badges/90fba394-0049-4f25-86d7-31200bb792e4)](https://codebeat.co/projects/github-com-pixelstuermer-littlenotes-master)
 [![codecov](https://codecov.io/gh/pixelstuermer/littleNotes/branch/master/graph/badge.svg)](https://codecov.io/gh/pixelstuermer/littleNotes)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub release](https://img.shields.io/github/release/pixelstuermer/littleNotes.svg)]()
